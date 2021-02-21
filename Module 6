@@ -1,0 +1,60 @@
+ mypie <- c(40,30,20,10)
+ 
+ pie(mypie)
+ 
+ mycolors <- c("purple", "blue", "red", "pink")
+ teamColors<- c("gold", "forest green", "orange", "royal blue")
+ pie(mypie, col = mycolors)
+ 
+ barplot(mypie)
+ 
+ names(mypie) <- c("Saints", "USF", "Gator", "Magic")
+ 
+ barplot(mypie)
+ 
+ barplot(mypie, col = teamColors, main = 'My Favorite Sports Teams')
+
+ boxplot(mypie) 
+ 
+ hist(mypie)
+
+ hist(mypie, col = mycolors) 
+
+ x <- mtcars 
+
+ hist(x$mpg) 
+
+ hist(x$mpg, main = 'Histogram of MilesPerGallon') 
+
+ hist(x$mpg, main = 'Histogram of MilesPerGallon', xlab = 'Miles Per Gallon', ylab = 'Frequency')
+
+ hist(x$mpg, main = 'Histogram of MilesPerGallon', xlab = 'Miles Per Gallon', ylab = 'Frequency', col = "dark blue")
+ 
+ 
+ boxplot(x$mpg) 
+ 
+ boxplot(x$mpg, main = 'Histogram of MilesPerGallon') 
+ 
+ boxplot(x$mpg, main = 'Histogram of MilesPerGallon', ylab = 'Miles Per Gallon')
+ 
+ boxplot(x$mpg, main = 'Histogram of MilesPerGallon', xlab = 'Miles Per Gallon', ylab = 'Frequency', col = "cyan")
+ 
+ cyl.four <- x[x$cyl == "4",]
+ 
+ cyl.six <- x[x$cyl == "6",]
+ 
+ cyl.eight <- x[x$cyl == "8",]
+ 
+ 
+ boxplot(cyl.four$mpg, cyl.six$mpg, cyl.eight$mpg)
+ 
+ primaryColors <- c("red", "blue", "yellow")
+ 
+ boxplot(cyl.four$mpg, cyl.six$mpg, cyl.eight$mpg, main='Miles Per Gallon (mpg)', xlab= 'Engine Cylinders', ylab='MPG', names = c('4','6','8'), col = primaryColors)
+ 
+ 
+ 
+ 
+ 
+ 
+ 
