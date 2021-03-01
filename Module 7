@@ -1,0 +1,28 @@
+library(ggplot2)
+
+mydata <- mtcars
+
+# Histogram of WT
+ggplot(mydata, aes(x=wt))+
+  geom_histogram()
+
+# Histogram of CYL
+ggplot(mydata, aes(x=cyl))+
+  geom_histogram()
+
+# Histogram of HP
+ggplot(mydata, aes(x=hp))+
+  geom_histogram()
+
+
+ggplot(mtcars, aes(x=wt, y=cyl)) + geom_point(aes(color = as.factor(hp))) 
++ ggtitle("Scatter Plot of Weight vs Cylinder based on Horse Power") 
++ xlab("Weight") 
++ ylab("Cylinders")
+
+
+
+ggplot(mtcars, aes(x=wt, y=hp)) + geom_point(aes(color = as.factor(cyl))) 
++ ggtitle("Scatter Plot of Weight vs Horse Power based on Cylinder") 
++ xlab("Weight") 
++ ylab("Horse Power")
