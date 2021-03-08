@@ -1,0 +1,33 @@
+library(ggplot2)
+
+data <- mtcars
+newData <- data$qsec
+newData1 <- data$hp
+
+ggplot(data, aes(x = qsec, y = hp)) +
+  geom_point()
+
+ggplot(data, aes(x = qsec, y = hp)) +
+  geom_point() +
+  geom_smooth()
+
+ggplot(data, aes(x = qsec, y = hp)) +
+  geom_point() +
+  geom_smooth(method = 'lm')
+
+ggplot(data, aes(x = qsec, y = hp)) +
+  geom_smooth(method = "lm") +
+  geom_point(aes(color = factor(cyl))) 
+  
+
+ggplot(data, aes(x = qsec, y = hp)) +
+  geom_smooth(method = "lm") +
+  geom_point(aes(color = factor(cyl), shape = factor(am))) +
+  labs(title = "Correlation Between Quarter Second Time & Hosepower Based on Engine Cylinders",
+       color = "Cylinders",
+       shape = "Circle = Manual\nTriangle = Automatic",
+       x = "Quarter Mile Time",
+       y = "Horsepower")
+
+#Run Correlation to see numerical result of the visual analysis
+cor(newData, newData1)
