@@ -1,0 +1,50 @@
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+
+library(tidytext)
+library(tm)
+library(qdap)
+library(XML)
+library(wordcloud2)
+
+neg <- 'data/negative-words.txt'
+pos <- 'data/positive-words.txt'
+
+newPos <- scan(pos, character(0), sep = "\n")
+newNeg <- scan(neg, character(0), sep = "\n")
+
+newPos <- newPos[-1:-29]
+newNeg <- newNeg[-1:-30]
+
+MLK <- URLencode("http://www.analytictech.com/mb021/mlk.htm")
+
+
+
+doc.html <- htmlTreeParse(MLK, useInternal = TRUE)
+
+doc.text <- unlist(xpathApply(doc.html, '//p', xmlValue))
+
+doc.text <- gsub('\\n', ' ', doc.text)
+
+doc.text <- gsub('\\r', ' ', doc.text)
+
+words.vec <- VectorSource(doc.text)
+words.corpus <- Corpus(words.vec)
+words.corpus
+
+words.corpus <- tm_map(words.corpus, content_transformer(tolower))
+words.corpus <- tm_map(words.corpus, removePunctuation)
+words.corpus <- tm_map(words.corpus, removeNumbers)
+words.corpus <- tm_map(words.corpus, removeWords, stopwords("english"))
+textCorpus <- 
+  Corpus(VectorSource(words.corpus)) %>%
+  TermDocumentMatrix() %>%
+  as.matrix()
+
+
+textCorpus <- sort(rowSums(textCorpus), decreasing=TRUE)
+textCorpus <- data.frame(word = names(textCorpus), freq=textCorpus, row.names = NULL)
+wordcloud <- wordcloud2(data = textCorpus, minRotation = 2, maxRotation = 1, ellipticity = 10)
+
+wordcloud
