@@ -1,0 +1,13 @@
+library(ggplot2)
+
+TomlinsonRush <- read_csv("TomlinsonRush.csv")
+
+# Yards in each game time series
+ggplot(TomlinsonRush, aes(x = Game, y = Yards)) +
+  geom_line()
+
+
+       
+# Plot time-series by coloring by Attempts
+ggplot(TomlinsonRush, aes(Game, Yards, color = Attempts)) +
+  geom_line()
