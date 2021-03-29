@@ -1,0 +1,56 @@
+install.packages("CarletonStats")
+install.packages("devtools")
+install.packages("epanetReader")
+install.packages("fmsb")
+install.packages("ggplot2")
+install.packages("ggthemes")
+install.packages("latticeExtra")
+install.packages("MASS")
+install.packages("PerformanceAnalytics")
+install.packages("psych")
+install.packages("plyr")
+install.packages("prettyR")
+install.packages("plotrix")
+install.packages("proto")
+install.packages("RCurl")
+install.packages("reshape")
+install.packages("reshape2")
+
+
+library(CarletonStats)
+library(devtools)
+library(epanetReader)
+library(fmsb)
+library(ggplot2)
+library(ggthemes)
+library(latticeExtra)
+library(MASS)
+library(PerformanceAnalytics)
+library(psych)
+library(plyr)
+library(prettyR)
+library(plotrix)
+library(proto)
+library(RCurl)
+library(reshape)
+library(reshape2)
+
+TomlinsonRush <- read.csv("TomlinsonRush.csv")
+
+
+
+# Yards in each game time series
+ggplot(TomlinsonRush, aes(x = Attempts, y = Yards)) +
+  geom_point() +
+  geom_rug() + 
+  theme_tufte(ticks = F) +
+  xlab("Attempts") +
+  ylab("Yards") +
+  ggtitle("Tomlinsons Season Stats")
+  theme(axis.title.x = element_text(vjust = -0.5), axis.title.y = element_text(vjust = 1))
+
+
+
+
+source_url('https://raw.githubusercontent.com/bearloga/Quartile-frame-Scatterplot/master/qfplot.R')
+qfplot(x = TomlinsonRush$Attempts, y = TomlinsonRush$Yards, xlab="Attempts", ylab="Yards")
