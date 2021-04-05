@@ -1,0 +1,73 @@
+install.packages("igraph")
+library(igraph)
+
+
+TomlinsonRush <- read.csv("TomlinsonRush.csv")
+x <- graph(TomlinsonRush$Opponent)
+
+
+plot(x,
+     vertex.color = 'skyblue',
+     vertex.size = 18.5,
+     edge.color = 'yellow')
+
+#network measures
+degree(x, mode = 'all')
+degree(x, mode = 'in')
+degree(x, mode = 'out')
+
+diameter(x, directed = FALSE, weights = NA)
+
+edge_density(x, loops = FALSE)
+
+ecount(x) / (vcount(x)*(vcount(x)-1))
+
+reciprocity(x)
+
+closeness(x, mode = 'all', weights = NA)
+
+betweenness(x, directed = TRUE, weights = NA)
+ 
+edge_betweenness(x, directed = TRUE, weights = NA)
+
+
+#Read Data
+#Already done Above with Tomlinson.csv
+
+#Create Network
+
+y <- data.frame(TomlinsonRush$Opponent, TomlinsonRush$Yards)
+
+
+net <- graph.data.frame(y, directed = TRUE)
+V(net)
+
+E(net)
+
+V(net)$label <- V(net)$name
+
+V(net)$degree <- degree(net) 
+
+#Network Diagram
+set.seed(474)
+
+plot(net,
+     vertex.color = 'skyblue',
+     edge.arrow.size = 0.1,
+     edge.color = 'yellow'
+     )
+
+#highlight degrees
+
+plot(net,
+     vertex.color = 'skyblue',
+     vertex.size = V(net)$degree*0.7,
+     edge.arrow.size = 0.25,
+     layout = layout.graphopt)
+
+plot(net,
+     vertex.color = 'skyblue',
+     vertex.size = V(net)$degree*0.7,
+     edge.arrow.size = 0.25,
+     layout = layout.kamada.kawai)
+     
