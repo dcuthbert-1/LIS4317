@@ -1,0 +1,25 @@
+install.packages("animation")
+library(animation)
+
+
+saveGIF({
+  ani.options(nmax = 10)
+  par(mar = rep(1.5, 4))
+  sample.simple()
+})
+
+
+saveGIF({
+  set.seed(100)
+ani.options(nmax = 100, 2)
+freq = quincunx(balls = 25, col.balls = "green")
+
+})
+
+
+saveGIF({
+ani.options(interval = 0.1, nmax = 20)
+par(mar = rep(0.01, 4))
+BM.circle(n = 5, col = "gold", cex = 3, pch = 1)
+
+})
