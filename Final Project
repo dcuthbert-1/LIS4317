@@ -1,0 +1,76 @@
+#install.packages("ggplot2")
+library(ggplot2)
+#install.packages("igraph")
+library(igraph)
+#install.packages("animation")
+library(animation)
+
+
+dBrees <- read.csv("Brees300Games.csv")
+dBrees$Date <- as.Date(dBrees$Date, format = "%m/%d/%y")
+dBrees$Result<- as.factor(dBrees$Result)
+#Remove unwanted columns
+dBrees <- dBrees[,-11:-14]
+
+#Visual using ggplot2 for Touchdowns
+ggplot(dBrees, aes(x=TD, y=Opp)) +
+  geom_point(aes(color = Result)) +
+  ggtitle("Drew Brees Touchdowns Against Opponents (300 yard games only") +
+  xlab("Touchdowns") +
+  ylab("Opponents") + 
+  labs(color = "Game Result")
+
+#Visual using ggplot2 for Interceptions
+ggplot(dBrees, aes(x=Int, y=Opp)) +
+  geom_point(aes(color = Result)) +
+  ggtitle("Drew Brees Interceptions Against Opponents (300 yard games only") +
+  xlab("Interceptions") +
+  ylab("Opponents") + 
+  labs(color = "Game Result")
+  
+
+
+
+
+
+
+#Create Network
+
+DY <- data.frame(dBrees$Opp, dBrees$TD)
+DZ <- data.frame(dBrees$Opp, dBrees$Int)
+
+
+netY <- graph.data.frame(DY, directed = TRUE)
+netZ <- graph.data.frame(DZ, directed = TRUE)
+
+
+V(netY)
+V(netZ)
+
+E(netY)
+E(netZ)
+
+V(netY)$label <- V(netY)$name
+V(netZ)$label <- V(netZ)$name
+
+V(netY)$degree <- degree(netY)
+V(netZ)$degree <- degree(netZ)
+
+
+
+#Network Diagram
+set.seed(474)
+ani.options(interval = 0.1, nmax = 20)
+par(mar = rep(0.01, 4))
+#Touchdowns
+plot(netY,
+     vertex.color = 'gold',
+     vertex.size = V(netY)$degree* 1.5,
+     edge.arrow.size = 0.5,
+     layout = layout.fruchterman.reingold)
+#Interceptions
+plot(netZ,
+     vertex.color = 'gold',
+     vertex.size = V(netY)$degree* 0.9,
+     edge.arrow.size = 0.5,
+     layout = layout.random)
